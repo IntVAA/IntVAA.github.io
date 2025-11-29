@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>IntVAA · International Visual Arts Association</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --red: #e2362f;
+      --navy: #002366;
+      --gold: #dca01f;
+      --grey-bg: #f4f4f7;
+      --grey-line: #e0e0e5;
+      --text-main: #151515;
+      --text-muted: #777;
+      --card-pink: #ff4aa7;
+      --card-cyan: #02c4f4;
+      --card-black: #121212;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif;
+      color: var(--text-main);
+      background: #ffffff;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* ===== HEADER ===== */
+
+    .site-header {
+      border-bottom: 1px solid var(--grey-line);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+    }
+
+    .header-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-mark span {
+      font-weight: 800;
+    }
+
+    .brand-subtitle {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* NAV */
+
+    .nav {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-primary {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 14px;
+    }
+
+    .nav-item {
+      position: relative;
+      padding: 6px 0;
+    }
+
+    .nav-link {
+      padding-bottom: 4px;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+    }
+
+    .nav-item:hover .nav-link {
+      border-color: #000;
+    }
+
+    .has-dropdown:hover .dropdown {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 220px;
+      background: #fff;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border-radius: 4px;
+      padding: 8px 0;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: all 0.18s ease-out;
+      z-index: 200;
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 8px 16px;
+      font-size: 13px;
+      color: #333;
+    }
+
+    .dropdown a:hover {
+      background: var(--grey-bg);
+    }
+
+    /* RIGHT ACTIONS */
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .language-toggle {
+      border: 1px solid var(--grey-line);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .search-icon {
+      font-size: 16px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid transparent;
+      padding: 6px 14px;
+      font-size: 13px;
+      cursor: pointer;
+      background: transparent;
+    }
+
+    .btn-join {
+      border-color: #000;
+    }
+
+    .btn-donate {
+      background: #000;
+      color: #fff;
+    }
+
+    .btn-login {
+      border-color: var(--grey-line);
+      color: #333;
+    }
+
+    /* Mobile nav button */
+
+    .nav-toggle {
+      display: none;
+      border: none;
+      background: transparent;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    /* ===== HERO ===== */
+
+    .hero {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 40px 24px 30px;
+    }
+
+    .hero-slider {
+      border-bottom: 1px solid var(--grey-line);
+      padding-bottom: 24px;
+      margin-bottom: 18px;
+    }
+
+    .hero-slide {
+      display: none;
+    }
+
+    .hero-slide.active {
+      display: block;
+    }
+
+    .hero-main-logo {
+      font-size: clamp(64px, 12vw, 118px);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 0.8;
+    }
+
+    .hero-main-logo span:nth-child(1) {
+      color: #000;
+    }
+    .hero-main-logo span:nth-child(2) {
+      color: var(--red);
+    }
+
+    .hero-subtitle {
+      margin-top: 20px;
+      font-size: 18px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .hero-dots {
+      margin-top: 20px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .hero-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #ccc;
+      border: none;
+      cursor: pointer;
+    }
+
+    .hero-dot.active {
+      background: #000;
+    }
+
+    /* ===== NEWS STRIP ===== */
+
+    .news-strip {
+      background: var(--grey-bg);
+      border-top: 1px solid var(--grey-line);
+      border-bottom: 1px solid var(--grey-line);
+      font-size: 13px;
+      color: #333;
+      padding: 10px 24px;
+    }
+
+    .news-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .news-label {
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-right: 10px;
+      color: #444;
+    }
+
+    .news-body {
+      flex: 1;
+    }
+
+    .news-link {
+      font-weight: 500;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    /* ===== PROGRAM CARDS ===== */
+
+    .programs-section {
+      max-width: 1180px;
+      margin: 30px auto 60px;
+      padding: 0 24px;
+    }
+
+    .program-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .program-card {
+      display: flex;
+      flex-direction: column;
+      border-radius: 4px;
+      overflow: hidden;
+      background: #f6f6f8;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+      min-height: 280px;
+    }
+
+    .program-visual {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 20px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 20px;
+    }
+
+    .program-visual.pink {
+      background: linear-gradient(135deg, var(--card-pink), #ffd5ff);
+    }
+    .program-visual.gold {
+      background: radial-gradient(circle at 20% 0, #ffe9a5, var(--gold));
+    }
+    .program-visual.cyan {
+      background: radial-gradient(circle at 10% 0, #96f7ff, var(--card-cyan));
+    }
+
+    .program-body {
+      padding: 16px 18px 18px;
+      background: #ffffff;
+    }
+
+    .program-tag {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .program-title {
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .program-text {
+      font-size: 13px;
+      color: #555;
+    }
+
+    /* ===== FOOTER ===== */
+
+    .footer-main {
+      background: var(--red);
+      color: #fff;
+      padding: 26px 24px;
+    }
+
+    .footer-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .footer-org {
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .footer-contact {
+      font-size: 13px;
+    }
+
+    .footer-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      margin-top: 8px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-social {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .footer-social span {
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      padding: 2px 8px;
+    }
+
+    .footer-color-block {
+      height: 120px;
+      background: var(--navy);
+    }
+
+    /* ===== RESPONSIVE ===== */
+
+    @media (max-width: 960px) {
+      .nav-primary {
+        display: none;
+      }
+
+      .nav-actions {
+        display: none;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+
+      .nav.mobile-open .nav-primary,
+      .nav.mobile-open .nav-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        background: #fff;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        padding: 16px 24px 18px;
+        border-bottom: 1px solid var(--grey-line);
+      }
+
+      .nav.mobile-open .nav-actions {
+        margin-top: 10px;
+      }
+
+      .dropdown {
+        position: static;
+        box-shadow: none;
+        opacity: 1;
+        pointer-events: auto;
+        transform: none;
+        padding-left: 10px;
+      }
+
+      .hero {
+        padding-top: 24px;
+      }
+
+      .hero-subtitle {
+        font-size: 14px;
+      }
+
+      .program-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div>
+          <div class="brand-mark">Int<span>VAA</span></div>
+          <div class="brand-subtitle">INTERNATIONAL VISUAL ARTS ASSOCIATION</div>
+        </div>
+      </div>
+
+      <nav class="nav" id="mainNav">
+        <ul class="nav-primary">
+          <li class="nav-item has-dropdown">
+            <a href="#" class="nav-link">About IntVAA</a>
+            <div class="dropdown">
+              <a href="#">Mission &amp; Vision</a>
+              <a href="#">Governance</a>
+              <a href="#">Organizational Structure</a>
+              <a href="#">Media Center</a>
+              <a href="#">Contact</a>
+            </div>
+          </li>
+
+          <li class="nav-item has-dropdown">
+            <a href="#" class="nav-link">Programs &amp; Events</a>
+            <div class="dropdown">
+              <a href="#">Sustainable Design</a>
+              <a href="#">World Short Video Competition</a>
+              <a href="#">Public Welfare Performance Art</a>
+              <a href="#">Exhibitions</a>
+              <a href="#">Past Programs</a>
+            </div>
+          </li>
+
+          <li class="nav-item has-dropdown">
+            <a href="#" class="nav-link">Artists &amp; Members</a>
+            <div class="dropdown">
+              <a href="#">IntVAA Advisor</a>
+              <a href="#">Become a Member</a>
+              <a href="#">Membership Tiers</a>
+              <a href="#">Artist Directory</a>
+              <a href="#">Submission Center</a>
+            </div>
+          </li>
+
+          <li class="nav-item has-dropdown">
+            <a href="#" class="nav-link">Education &amp; Training</a>
+            <div class="dropdown">
+              <a href="#">Academic &amp; Design Education</a>
+              <a href="#">Business &amp; Freelance Resources</a>
+              <a href="#">H1-B &amp; O-1 Visa Letters</a>
+              <a href="#">Student Resources</a>
+              <a href="#">Design Futures Research</a>
+              <a href="#">Design POV Research</a>
+            </div>
+          </li>
+
+          <li class="nav-item has-dropdown">
+            <a href="#" class="nav-link">Donor Recognition</a>
+            <div class="dropdown">
+              <a href="#">Donor Levels</a>
+              <a href="#">Patron Circle</a>
+              <a href="#">Corporate Partners</a>
+              <a href="#">Annual Donor List</a>
+            </div>
+          </li>
+        </ul>
+
+        <div class="nav-actions">
+          <button class="language-toggle">EN / 中文</button>
+          <span class="search-icon" aria-label="Search">🔍</span>
+          <button class="btn btn-join">Join</button>
+          <button class="btn btn-donate">Donate</button>
+          <button class="btn btn-login">Login</button>
+        </div>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">☰</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <main>
+    <section class="hero">
+      <div class="hero-slider" id="heroSlider">
+        <div class="hero-slide active">
+          <div class="hero-main-logo">
+            <span>Int</span><span>VAA</span>
+          </div>
+          <div class="hero-subtitle">
+            INTERNATIONAL VISUAL ARTS ASSOCIATION
+          </div>
+        </div>
+        <!-- 如果将来要加第二、第三张轮播，可以复制 hero-slide 块 -->
+        <div class="hero-dots">
+          <button class="hero-dot active" data-slide="0" aria-label="Slide 1"></button>
+          <button class="hero-dot" data-slide="1" aria-label="Slide 2"></button>
+          <button class="hero-dot" data-slide="2" aria-label="Slide 3"></button>
+          <button class="hero-dot" data-slide="3" aria-label="Slide 4"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== NEWS STRIP ===== -->
+    <section class="news-strip">
+      <div class="news-inner">
+        <div class="news-body">
+          <span class="news-label">IN THE NEWS</span>
+          <span>
+            The World Short Video Competition has officially launched its call for entries.
+          </span>
+        </div>
+        <a href="#" class="news-link">Read More →</a>
+      </div>
+    </section>
+
+    <!-- ===== PROGRAM CARDS ===== -->
+    <section class="programs-section">
+      <div class="program-grid">
+        <article class="program-card">
+          <div class="program-visual pink">
+            Sustainable<br />Design
+          </div>
+          <div class="program-body">
+            <div class="program-tag">Call for submissions</div>
+            <div class="program-title">Sustainable Design Case Studies</div>
+            <p class="program-text">
+              Global call for interdisciplinary design projects that explore digital, diverse, and secure futures.
+            </p>
+          </div>
+        </article>
+
+        <article class="program-card">
+          <div class="program-visual gold">
+            World Short<br />Video Competition
+          </div>
+          <div class="program-body">
+            <div class="program-tag">Annual Program</div>
+            <div class="program-title">World Short Video Competition 2026</div>
+            <p class="program-text">
+              International competition highlighting innovative visual storytelling across film, animation, and digital media.
+            </p>
+          </div>
+        </article>
+
+        <article class="program-card">
+          <div class="program-visual cyan">
+            Public Welfare<br />Performance Art
+          </div>
+          <div class="program-body">
+            <div class="program-tag">Public Program</div>
+            <div class="program-title">Public Welfare Performance Art</div>
+            <p class="program-text">
+              Site-specific performances and community-based projects that connect visual arts with social engagement.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-main">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-logo">IntVAA</div>
+          <div class="footer-org">
+            INTERNATIONAL VISUAL ARTS ASSOCIATION
+          </div>
+        </div>
+
+        <div class="footer-contact">
+          322 Campus Dr, Arcadia, CA, USA&nbsp; 91007<br />
+          Phone: +1 213 6161 777
+        </div>
+
+        <div class="footer-bottom">
+          <div>© 2025 IntVAA</div>
+          <div class="footer-links">
+            <a href="#">Terms &amp; Conditions</a>
+            <a href="#">Privacy Policy</a>
+          </div>
+          <div class="footer-social">
+            <span>Facebook</span>
+            <span>Instagram</span>
+            <span>YouTube</span>
+            <span>Twitter / X</span>
+            <span>TikTok</span>
+            <span>LinkedIn</span>
+            <span>Weibo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-color-block"></div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    (function () {
+      var nav = document.getElementById("mainNav");
+      var toggle = document.getElementById("navToggle");
+      if (toggle) {
+        toggle.addEventListener("click", function () {
+          nav.classList.toggle("mobile-open");
+        });
+      }
+    })();
+
+    // Hero dots (预留：当前只有一张 slide，后续可扩展)
+    (function () {
+      var slider = document.getElementById("heroSlider");
+      if (!slider) return;
+      var slides = slider.querySelectorAll(".hero-slide");
+      var dots = slider.querySelectorAll(".hero-dot");
+      if (!slides.length || !dots.length) return;
+
+      function activate(index) {
+        slides.forEach(function (s, i) {
+          s.classList.toggle("active", i === index);
+        });
+        dots.forEach(function (d, i) {
+          d.classList.toggle("active", i === index);
+        });
+      }
+
+      dots.forEach(function (dot) {
+        dot.addEventListener("click", function () {
+          var idx = parseInt(dot.getAttribute("data-slide"), 10);
+          if (!isNaN(idx) && idx < slides.length) {
+            activate(idx);
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
