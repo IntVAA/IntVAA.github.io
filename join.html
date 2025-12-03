@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>视觉协会 - Join</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header fade-in">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <img src="logo.jpg" alt="IntVAA Logo" />
+      </a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-item">About IntVAA</a>
+        <a href="programs-events.html" class="nav-item">Programs &amp; Events</a>
+        <a href="artists-members.html" class="nav-item">Artists &amp; Members</a>
+        <a href="education-training.html" class="nav-item">Education &amp; Training</a>
+        <a href="donor-recognition.html" class="nav-item">Donor Recognition</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="join.html" class="nav-action-item active">Join</a>
+        <a href="donate.html" class="nav-action-item">Donate</a>
+        <a href="login.html" class="nav-action-item">Login</a>
+        <div class="language-switcher">
+          <span>English</span>
+          <span class="triangle"></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="join-main">
+    <section class="join-block fade-in delay-1">
+      <img src="Join_Donate_Login/join.jpg" alt="Join IntVAA" />
+    </section>
+  </main>
+
+  <footer class="bottom-bar fade-in" aria-label="Contact information bar">
+    <div class="bottom-bar-bg"></div>
+  </footer>
+
+  <script>
+    (function () {
+      const fadeEls = document.querySelectorAll('.fade-in');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          {
+            threshold: 0.15,
+          }
+        );
+
+        fadeEls.forEach((el) => observer.observe(el));
+      } else {
+        fadeEls.forEach((el) => el.classList.add('in-view'));
+      }
+    })();
+  </script>
+</body>
+</html>

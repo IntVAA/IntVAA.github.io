@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>视觉协会 - Education &amp; Training</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header fade-in">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <img src="logo.jpg" alt="IntVAA Logo" />
+      </a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-item">About IntVAA</a>
+        <a href="programs-events.html" class="nav-item">Programs &amp; Events</a>
+        <a href="artists-members.html" class="nav-item">Artists &amp; Members</a>
+        <a href="education-training.html" class="nav-item active">Education &amp; Training</a>
+        <a href="donor-recognition.html" class="nav-item">Donor Recognition</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="join.html" class="nav-action-item">Join</a>
+        <a href="donate.html" class="nav-action-item">Donate</a>
+        <a href="login.html" class="nav-action-item">Login</a>
+        <div class="language-switcher">
+          <span>English</span>
+          <span class="triangle"></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="education-main">
+    <section class="education-block fade-in delay-1">
+      <img src="Education&Training/images/Education&Training_01.jpg" alt="Education &amp; Training section 1" />
+    </section>
+    <section class="education-block fade-in delay-2">
+      <img src="Education&Training/images/Education&Training_02.jpg" alt="Education &amp; Training section 2" />
+    </section>
+    <section class="education-block fade-in delay-3">
+      <img src="Education&Training/images/Education&Training_03.jpg" alt="Education &amp; Training section 3" />
+    </section>
+    <section class="education-block fade-in delay-4">
+      <img src="Education&Training/images/Education&Training_04.jpg" alt="Education &amp; Training section 4" />
+    </section>
+    <section class="education-block fade-in delay-5">
+      <img src="Education&Training/images/Education&Training_05.jpg" alt="Education &amp; Training section 5" />
+    </section>
+    <section class="education-block fade-in delay-6">
+      <img src="Education&Training/images/Education&Training_06.jpg" alt="Education &amp; Training section 6" />
+    </section>
+  </main>
+
+  <footer class="bottom-bar fade-in" aria-label="Contact information bar">
+    <div class="bottom-bar-bg"></div>
+  </footer>
+
+  <script>
+    (function () {
+      const fadeEls = document.querySelectorAll('.fade-in');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          {
+            threshold: 0.15,
+          }
+        );
+
+        fadeEls.forEach((el) => observer.observe(el));
+      } else {
+        fadeEls.forEach((el) => el.classList.add('in-view'));
+      }
+    })();
+  </script>
+</body>
+</html>
